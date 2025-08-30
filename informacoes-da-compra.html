@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações | UrbanThread</title>
+    <!-- Importa a fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Importa a biblioteca de ícones Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a1a1a; /* Cinza-chumbo quase preto */
+            --secondary-color: #6c757d;
+            --accent-color: #c59d5f; /* Dourado/Bronze para destaques */
+            --success-color: #28a745;
+            --background-color: #f5f5f7; /* Fundo cinza claro (padrão Apple) */
+            --surface-color: #ffffff; /* Cor das superfícies/cards */
+            --text-color: #1d1d1f;
+            --text-light-color: #86868b;
+            --border-color: #d2d2d7;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --box-shadow-interactive: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background-color: var(--surface-color);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--border-color);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-light-color);
+            z-index: 2;
+            background-color: var(--background-color);
+            padding: 0 0.5rem;
+        }
+        
+        .progress-step.completed {
+            color: var(--primary-color);
+        }
+
+        .progress-step.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .progress-step .icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            display: grid;
+            place-items: center;
+            color: var(--text-light-color);
+        }
+        
+        .progress-step.completed .icon {
+             background-color: var(--primary-color);
+             color: white;
+        }
+
+        .progress-step.active .icon {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .checkout-section {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .input-field {
+             display: flex;
+             flex-direction: column;
+             margin-bottom: 1rem;
+        }
+
+        .input-field label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-light-color);
+            margin-bottom: 0.4rem;
+        }
+
+        .input-field input {
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+        .input-field input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .three-cols { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; }
+
+        .selection-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        input[type="radio"] { display: none; }
+        
+        input[type="radio"]:checked + .selection-card {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        #new-address-form {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 1.5rem;
+        }
+
+        .order-summary {
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .product-list-item {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .product-list-item:first-child { padding-top: 0; }
+        .product-list-item:last-child { border-bottom: none; }
+        
+        .product-image {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+        
+        .product-details { flex-grow: 1; }
+        .product-details p { margin: 0; font-size: 0.9rem; }
+        .product-details .product-name { font-weight: 600; }
+        .product-details .product-qty { color: var(--text-light-color); }
+        .product-price { font-weight: 600; }
+        
+        .coupon-section { display: flex; gap: 0.5rem; margin: 1.5rem 0; }
+        .coupon-section input {
+            flex-grow: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px; font-family: 'Inter', sans-serif;
+        }
+        .coupon-section button {
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            border-radius: 8px; font-weight: 500; cursor: pointer;
+        }
+        
+        .summary-line { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
+        .summary-line.total {
+            font-size: 1.25rem; font-weight: 700;
+            padding-top: 1rem; margin-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+        .btn-primary:hover { background-color: #000; }
+        
+        @media (max-width: 992px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+            .order-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <a href="#" class="logo">UrbanThread</a>
+    </header>
+
+    <div class="checkout-container">
+        
+        <div class="progress-bar">
+            <div class="progress-step completed"><span class="icon">✓</span> Carrinho</div>
+            <div class="progress-step active"><span class="icon">2</span> Informações</div>
+            <div class="progress-step"><span class="icon">3</span> Pagamento</div>
+        </div>
+
+        <div class="checkout-layout">
+            <main class="checkout-details">
+                <section class="checkout-section">
+                    <div class="section-header">
+                        <h2>Informações de Contato</h2>
+                    </div>
+                    <div class="input-field">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" placeholder="seuemail@exemplo.com" value="maria.silva@email.com">
+                    </div>
+                </section>
+
+                <section class="checkout-section">
+                    <div class="section-header">
+                        <h2>Endereço de Entrega</h2>
+                    </div>
+                    <div>
+                        <input type="radio" name="address-option" id="address-default" checked>
+                        <label for="address-default" class="selection-card">
+                            <div>
+                                <p style="font-weight: 600;">Usar Endereço Padrão</p>
+                                <p style="font-size: 0.9rem; color: var(--text-light-color); margin-top: 4px;">Rua das Flores, 123 - São Paulo, SP</p>
+                            </div>
+                        </label>
+                        
+                        <input type="radio" name="address-option" id="address-new">
+                        <label for="address-new" class="selection-card">
+                             <div>
+                                <p style="font-weight: 600;">Registrar Novo Endereço</p>
+                            </div>
+                        </label>
+
+                        <form id="new-address-form" style="display: none;">
+                            <div class="input-field">
+                                <label for="cep">CEP</label>
+                                <input type="text" id="cep" placeholder="00000-000">
+                            </div>
+                            <div class="input-field">
+                                <label for="address">Endereço</label>
+                                <input type="text" id="address" placeholder="Rua, Av, etc.">
+                            </div>
+                            <div class="two-cols">
+                                 <div class="input-field">
+                                    <label for="number">Número</label>
+                                    <input type="text" id="number">
+                                </div>
+                                 <div class="input-field">
+                                    <label for="complement">Complemento (opcional)</label>
+                                    <input type="text" id="complement" placeholder="Apto, casa, etc.">
+                                </div>
+                            </div>
+                            <div class="three-cols">
+                                <div class="input-field" style="grid-column: span 2;">
+                                    <label for="neighborhood">Bairro</label>
+                                    <input type="text" id="neighborhood">
+                                </div>
+                                <div class="input-field">
+                                   <label for="city">Cidade</label>
+                                   <input type="text" id="city">
+                               </div>
+                               <div class="input-field">
+                                   <label for="state">Estado</label>
+                                   <input type="text" id="state">
+                               </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="checkout-section">
+                    <div class="section-header">
+                        <h2>Método de Envio</h2>
+                    </div>
+                    <div>
+                        <input type="radio" name="shipping" id="shipping-pac" checked>
+                        <label for="shipping-pac" class="selection-card">
+                            <div>
+                                <p style="font-weight: 600;">Correios PAC</p>
+                                <p style="font-size: 0.9rem; color: var(--text-light-color);">Entrega em até 8 dias úteis</p>
+                            </div>
+                            <span style="font-weight: 600;">R$ 15,50</span>
+                        </label>
+                        
+                        <input type="radio" name="shipping" id="shipping-sedex">
+                        <label for="shipping-sedex" class="selection-card">
+                             <div>
+                                <p style="font-weight: 600;">Correios Sedex</p>
+                                <p style="font-size: 0.9rem; color: var(--text-light-color);">Entrega em até 3 dias úteis</p>
+                            </div>
+                            <span style="font-weight: 600;">R$ 28,00</span>
+                        </label>
+
+                         <input type="radio" name="shipping" id="shipping-store">
+                        <label for="shipping-store" class="selection-card">
+                             <div>
+                                <p style="font-weight: 600;">Retirar na loja</p>
+                                <p style="font-size: 0.9rem; color: var(--text-light-color);">Disponível em 24 horas</p>
+                            </div>
+                            <span style="font-weight: 600;">Grátis</span>
+                        </label>
+                    </div>
+                </section>
+                
+                 <a href="pagamento.html" class="btn-primary">Ir para o Pagamento</a>
+            </main>
+
+            <aside class="order-summary checkout-section">
+                <h2>Resumo do Pedido</h2>
+                
+                <div class="product-list">
+                    <div class="product-list-item">
+                        <img src="https://placehold.co/128x128/f0f0f0/000?text=Produto+1" alt="Produto 1" class="product-image">
+                        <div class="product-details">
+                            <p class="product-name">Camiseta de Algodão</p>
+                            <p class="product-qty">Quantidade: 2</p>
+                        </div>
+                        <p class="product-price">R$ 199,80</p>
+                    </div>
+                    <div class="product-list-item">
+                        <img src="https://placehold.co/128x128/e0e0e0/000?text=Produto+2" alt="Produto 2" class="product-image">
+                        <div class="product-details">
+                            <p class="product-name">Tênis Performance</p>
+                            <p class="product-qty">Quantidade: 1</p>
+                        </div>
+                        <p class="product-price">R$ 349,90</p>
+                    </div>
+                </div>
+
+                <div class="coupon-section">
+                    <input type="text" placeholder="Cupom de desconto">
+                    <button type="button">Aplicar</button>
+                </div>
+
+                <div class="summary-details">
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span>R$ 549,70</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Frete</span>
+                        <span>R$ 15,50</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span>R$ 565,20</span>
+                    </div>
+                </div>
+                
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Ativa os ícones da biblioteca Feather Icons
+        feather.replace();
+
+        // Lógica para mostrar/ocultar o formulário de novo endereço
+        const addressDefaultRadio = document.getElementById('address-default');
+        const addressNewRadio = document.getElementById('address-new');
+        const newAddressForm = document.getElementById('new-address-form');
+
+        addressDefaultRadio.addEventListener('change', () => {
+            if (addressDefaultRadio.checked) {
+                newAddressForm.style.display = 'none';
+            }
+        });
+
+        addressNewRadio.addEventListener('change', () => {
+            if (addressNewRadio.checked) {
+                newAddressForm.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
