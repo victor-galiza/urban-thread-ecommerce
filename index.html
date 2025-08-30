@@ -204,6 +204,7 @@
             display: block;
         }
         
+        /* Alterado para <a> e estilizado como botão */
         .product-card .add-to-cart-btn {
             position: absolute;
             bottom: -50px; /* Começa escondido */
@@ -218,6 +219,8 @@
             font-weight: 600;
             cursor: pointer;
             transition: bottom 0.3s ease;
+            text-align: center;
+            text-decoration: none;
         }
 
         .product-card:hover .add-to-cart-btn {
@@ -300,7 +303,7 @@
 
     <header class="main-header">
         <div class="container">
-            <a href="#" class="logo">UrbanThread</a>
+            <a href="index.html" class="logo">UrbanThread</a>
             <nav class="main-nav">
                 <ul>
                     <li><a href="#">Feminino</a></li>
@@ -312,7 +315,7 @@
             <div class="header-icons">
                 <a href="#"><i data-feather="search"></i></a>
                 <a href="#"><i data-feather="user"></i></a>
-                <a href="carrinho.html"><i data-feather="shopping-cart"></i></a>
+                <a href="carrinho-cliente.html"><i data-feather="shopping-cart"></i></a>
             </div>
         </div>
     </header>
@@ -336,7 +339,7 @@
                     <div class="product-card">
                         <div class="product-image-container">
                             <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1784&auto=format&fit=crop" alt="Camiseta Branca">
-                            <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                            <a href="carrinho-cliente.html" class="add-to-cart-btn">Adicionar ao Carrinho</a>
                         </div>
                         <div class="product-info">
                             <h3>Camiseta Básica de Algodão</h3>
@@ -347,7 +350,7 @@
                     <div class="product-card">
                         <div class="product-image-container">
                              <img src="https://images.unsplash.com/photo-1602293589914-9e296ba0d5cd?q=80&w=1887&auto=format&fit=crop" alt="Calça Jeans">
-                             <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                             <a href="carrinho-cliente.html" class="add-to-cart-btn">Adicionar ao Carrinho</a>
                         </div>
                         <div class="product-info">
                             <h3>Calça Jeans Reta</h3>
@@ -358,7 +361,7 @@
                     <div class="product-card">
                          <div class="product-image-container">
                             <img src="https://images.unsplash.com/photo-1588117260148-b47826782c76?q=80&w=1887&auto=format&fit=crop" alt="Jaqueta de Couro">
-                            <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                            <a href="carrinho-cliente.html" class="add-to-cart-btn">Adicionar ao Carrinho</a>
                         </div>
                         <div class="product-info">
                             <h3>Jaqueta de Couro Sintético</h3>
@@ -369,7 +372,7 @@
                     <div class="product-card">
                          <div class="product-image-container">
                              <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=1964&auto=format&fit=crop" alt="Tênis Branco">
-                             <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                             <a href="carrinho-cliente.html" class="add-to-cart-btn">Adicionar ao Carrinho</a>
                         </div>
                         <div class="product-info">
                             <h3>Tênis Casual Urbano</h3>
@@ -427,3 +430,4 @@
     </script>
 </body>
 </html>
+
